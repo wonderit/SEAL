@@ -25,6 +25,7 @@ int main()
         cout << "| 6. Rotation                | 6_rotation.cpp             |" << endl;
         cout << "| 7. Serialization           | 7_serialization.cpp        |" << endl;
         cout << "| 8. Performance Test        | 8_performance.cpp          |" << endl;
+        cout << "| 9. DCKKS Test              | 9_dckks_basics.cpp         |" << endl;
         cout << "+----------------------------+----------------------------+" << endl;
 
         /*
@@ -56,7 +57,7 @@ int main()
             }
             if (!valid)
             {
-                cout << "  [Beep~~] valid option: type 0 ~ 8" << endl;
+                cout << "  [Beep~~] valid option: type 0 ~ 9" << endl;
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
             }
@@ -94,6 +95,10 @@ int main()
 
         case 8:
             example_performance_test();
+            break;
+
+        case 9:
+            example_dckks_basics();
             break;
 
         case 0:
