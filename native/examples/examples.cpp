@@ -42,12 +42,12 @@ int main()
         bool valid = true;
         do
         {
-            cout << endl << "> Run example (1 ~ 8) or exit (0): ";
+            cout << endl << "> Run example (1 ~ 9) or exit (0): ";
             if (!(cin >> selection))
             {
                 valid = false;
             }
-            else if (selection < 0 || selection > 8)
+            else if (selection < 0 || selection > 9)
             {
                 valid = false;
             }

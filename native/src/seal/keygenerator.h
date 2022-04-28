@@ -85,6 +85,18 @@ namespace seal
         }
 
         /**
+        Generates a public key and stores the result in destination. Every time
+        this function is called, a new public key will be generated.
+
+        @param[out] destination The public key to overwrite with the generated
+        public key
+        */
+        inline void create_public_key(prng_seed_type prng_seed, PublicKey &destination) const
+        {
+            destination = generate_pk(prng_seed, false);
+        }
+
+        /**
         Generates relinearization keys and stores the result in destination.
         Every time this function is called, new relinearization keys will be
         generated.
@@ -319,6 +331,11 @@ namespace seal
         Generates new public key matching to existing secret key.
         */
         PublicKey generate_pk(bool save_seed) const;
+
+        /**
+        Generates new public key matching to existing secret key and prng_seed.
+        */
+        PublicKey generate_pk(prng_seed_type prng_seed, bool save_seed) const;
 
         /**
         Generates new key switching keys for an array of new keys.

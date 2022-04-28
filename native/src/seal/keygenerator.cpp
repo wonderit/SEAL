@@ -119,6 +119,35 @@ namespace seal
         return public_key;
     }
 
+    PublicKey KeyGenerator::generate_pk(prng_seed_type prng_seed, bool save_seed) const
+    {
+        if (!sk_generated_)
+        {
+            throw logic_error("cannot generate public key for unspecified secret key");
+        }
+
+        // Extract encryption parameters.
+        auto &context_data = *context_.key_context_data();
+        auto &parms = context_data.parms();
+        auto &coeff_modulus = parms.coeff_modulus();
+        size_t coeff_count = parms.poly_modulus_degree();
+        size_t coeff_modulus_size = coeff_modulus.size();
+
+        // Size check
+        if (!product_fits_in(coeff_count, coeff_modulus_size))
+        {
+            throw logic_error("invalid parameters");
+        }
+
+        PublicKey public_key;
+        encrypt_zero_symmetric_by_seed(secret_key_, context_, context_data.parms_id(), true, save_seed, prng_seed, public_key.data());
+
+        // Set the parms_id for public key
+        public_key.parms_id() = context_data.parms_id();
+
+        return public_key;
+    }
+
     RelinKeys KeyGenerator::create_relin_keys(size_t count, bool save_seed)
     {
         // Check to see if secret key and public key have been generated
